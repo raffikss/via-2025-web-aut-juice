@@ -32,13 +32,14 @@ describe("Juice-shop scenarios", () => {
       // Login button
       HomePage.loginButton.click();
       // Click "Not yet a customer?"
-      LoginPage.notYetCustomerLink.click();
+      LoginPage.notYetACustomerLink.click();
       // Find - how to generate random number in JS
       const randomNumber = Math.floor(Math.random() * 900000) + 100000;
       // Use that number to genarate unique email address, e.g.: email_7584@ebox.com
       const emailAddress = `email_${randomNumber}@ebox.com`;      // Save that email address to some variable
       // Fill in password field and repeat password field with same password
       const password = "ABC123#()";
+      RegistrationPage.emailField.type(emailAddress);
       RegistrationPage.passwordField.type(password);
       RegistrationPage.repeatPasswordField.type(password);
       // Click on Security Question menu
@@ -158,7 +159,7 @@ describe("Juice-shop scenarios", () => {
 
 
     // Create scenario - Validate product card amount
-    it.only("Validate product card amount", () => {
+    it("Validate product card amount", () => {
       // Validate default amount of cards is 12
       HomePage.cardsAmount.should("contain.text", "1 – 12");
   
