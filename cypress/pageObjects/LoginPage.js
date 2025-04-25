@@ -21,8 +21,8 @@ static get loginButton() {
 static get userProfileButton() {
   return cy.get("button[aria-label='Go to user profile']");
 }
-  static get notYetCustomerLink(){
-  return cy.get("newCustomerLink")
-  }
+static get notYetACustomerLink() {
+  return cy.get("#newCustomerLink");
+}
 }
   
