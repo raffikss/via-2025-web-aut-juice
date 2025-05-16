@@ -1,6 +1,15 @@
+import { BasketPage } from "../pageObjects/BasketPage";
+import { CreateAddressPage } from "../pageObjects/CreateAddressPage";
+import { DeliveryMethodPage } from "../pageObjects/DeliveryMethodPage";
 import { HomePage } from "../pageObjects/HomePage";
 import { LoginPage } from "../pageObjects/LoginPage";
+import { OrderCompletionPage } from "../pageObjects/OrderCompletionPage";
+import { OrderSummaryPage } from "../pageObjects/OrderSummaryPage";
+import { PaymentOptionsPage } from "../pageObjects/PaymentOptionsPage";
 import { RegistrationPage } from "../pageObjects/registrationPage";
+import { SavedAddressesPage } from "../pageObjects/SavedAddressPage";
+import { SavedPaymentMethodsPage } from "../pageObjects/SavedPaymentMethodsPage";
+import { SelectAddressPage } from "../pageObjects/SelectAddressPage";
 
 describe("Juice-shop scenarios", () => {
   context("Without auto login", () => {
@@ -154,7 +163,7 @@ describe("Juice-shop scenarios", () => {
       // Click expand reviews button/icon (wait for reviews to appear)
       HomePage.reviewsButton.click();
       // Validate review - "Tastes like metal"
-      HomePage.reviewsContent.should("contain.text", "demoTastes like metalthumb_up0demo");
+      HomePage.reviewsContent.should("contain.text", "demoTastes like metalthumb_up0");
     });
 
 
@@ -182,49 +191,108 @@ describe("Juice-shop scenarios", () => {
       HomePage.cardsAmount.should("contain.text", "1 – 36");
   });
 
-    // Create scenario - Buy Girlie T-shirt
+    //Create scenario - Buy Girlie T-shirt
+    it("Create scenario - Buy Girlie T-shirt", () => {
     // Click on search icon
+      HomePage.searchIcon.click();
     // Search for Girlie
+      HomePage.searchField.type("Girlie{enter}");
     // Add to basket "Girlie"
+    HomePage.addToBasket.click();
     // Click on "Your Basket" button
+    HomePage.showBasket.click();
     // Create page object - BasketPage
     // Click on "Checkout" button
+    BasketPage.checkoutButton.click();
     // Create page object - SelectAddressPage
     // Select address containing "United Fakedom"
+    SelectAddressPage.addressRadioButton.click(); 
     // Click Continue button
+    SelectAddressPage.addressContinueButton.click();
     // Create page object - DeliveryMethodPage
     // Select delivery speed Standard Delivery
+    DeliveryMethodPage.standartDeliveryButton.click();
     // Click Continue button
+    DeliveryMethodPage.DeliveryContinueButton.click();
     // Create page object - PaymentOptionsPage
     // Select card that ends with "5678"
+    PaymentOptionsPage.paymentButton.click();
     // Click Continue button
+    PaymentOptionsPage.PaymentContinueButton.click();
     // Create page object - OrderSummaryPage
     // Click on "Place your order and pay"
+    OrderSummaryPage.PlaceOrderButton.click();
     // Create page object - OrderCompletionPage
     // Validate confirmation - "Thank you for your purchase!"
+    OrderCompletionPage.ConfirmationText.should('contain.text' , 'Thank you for your purchase!')
+
+      });
 
     // Create scenario - Add address
+    it("Add address", () => {
     // Click on Account
+    HomePage.accountButton.click();
     // Click on Orders & Payment
+    HomePage.ordersAndPaymentButton.click();
     // Click on My saved addresses
+    HomePage.svedAddressesButton.click();
     // Create page object - SavedAddressesPage
-    // Click on Add New Address
+    // Click on Add New Address (add new address)
+    SavedAddressesPage.addNewAddressButton.click();
     // Create page object - CreateAddressPage
     // Fill in the necessary information
+      const Country = "Latvia";
+      CreateAddressPage.addCountry.type(Country)
+      const Name = 'Rafaels D';
+      CreateAddressPage.addName.type(Name)
+      const Number = '29131131';
+      CreateAddressPage.mobileNumber.type(Number)
+      const Code = '4201';
+      CreateAddressPage.addZipCode.type(Code)
+      const Address = 'Auseklu iela 25A';
+      CreateAddressPage.addAddress.type(Address)
+      const City = 'Valmiera';
+      CreateAddressPage.addCity.type(City)
+      const State = 'Valmieras  novads';
+      CreateAddressPage.addState.type(State)
     // Click Submit button
+    CreateAddressPage.submitButton.click();
     // Validate that previously added address is visible
+    CreateAddressPage.addressValidation.should('contain.text', 'Auseklu iela 25A, Valmiera, Valmieras  novads, 4201')
+      });
 
+    
     // Create scenario - Add payment option
+        it.only("Add payment option", () => {
+
     // Click on Account
+    HomePage.accountButton.click();
     // Click on Orders & Payment
+    HomePage.ordersAndPaymentButton.click();
     // Click on My payment options
+    HomePage.clickPaymentOtions.click();
     // Create page object - SavedPaymentMethodsPage
     // Click Add new card
+
+    SavedPaymentMethodsPage.addNewCard.click();
     // Fill in Name
+      const Name = "Rafaels";
+      SavedPaymentMethodsPage.newName.type(Name)
     // Fill in Card Number
-    // Set expiry month to 7
+      const Cardnumber = "2381 2438 4821 3151";
+      SavedPaymentMethodsPage.newCardNumber.type(Cardnumber)
+    // Set expiry month to 7 
+        const Date = '7';
+    SavedPaymentMethodsPage.cardDate.select(Date);
     // Set expiry year to 2090
+    const expiryDate = '2090';
+    SavedPaymentMethodsPage.expiryDate.select(expiryDate)
     // Click Submit button
+    SavedPaymentMethodsPage.submitButton.click();
     // Validate that the card shows up in the list
+    SavedPaymentMethodsPage.cardList.should('contain.text', 'Rafaels', );
+          
   });
+
+});
 });

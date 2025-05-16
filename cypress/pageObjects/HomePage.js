@@ -83,5 +83,28 @@ export class HomePage extends BasePage {
   static get reviewsContent() {
     return cy.get(".mat-expansion-panel-body");
   }
+
+  static get accountButton() {
+    return cy.get("#navbarAccount");
+  }
+
+static get ordersAndPaymentButton() {
+  return cy.contains('span.mat-mdc-menu-item-text', 'Orders & Payment')
+  .should('be.visible') 
+  .click();
+  }
+
+static get svedAddressesButton(){
+  return cy.get('button[aria-label="Go to saved address page"]');
+}
+
+static get clickPaymentOtions(){
+  return cy.get('button[aria-label="Go to saved payment methods page"]')
+}
+
+
+
+
+
 }
 
