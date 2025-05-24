@@ -238,7 +238,7 @@ describe("Juice-shop scenarios", () => {
     HomePage.svedAddressesButton.click();
     // Create page object - SavedAddressesPage
     // Click on Add New Address (add new address)
-    SavedAddressesPage.addNewAddressButton.click();
+    SavedAddressPage.addNewAddressButton.click();
     // Create page object - CreateAddressPage
     // Fill in the necessary information
       const Country = "Latvia";
